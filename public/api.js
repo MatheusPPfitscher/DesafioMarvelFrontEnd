@@ -2,6 +2,8 @@ const api = axios.create({
     baseURL: "http://localhost:8081"
 });
 
+const notAvailable = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg"
+const marvelLogo = "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Marvel_Logo.svg/1200px-Marvel_Logo.svg.png"
 const limit = 50; //limite requisições
 
 const limitePaginas = 10;
@@ -46,7 +48,8 @@ function atualizaTabela(lista) {
         conteudo += "<tr>"
         for (let colum = 0; colum < 10; colum++) {
             personagem = lista[counter]
-            conteudo += `<td><img alt="${personagem.name}" height=60 src=${personagem.photo}></td>`
+            if (personagem.photo == notAvailable) personagem.photo = marvelLogo
+            conteudo += `<td><img alt="${personagem.name}" height=100 width = 100 src=${personagem.photo}></td>`
             counter++;
         }
         conteudo += "</tr>"
@@ -62,6 +65,7 @@ function atualizaPaginacao(page) {
         }
     }
     else {
+        listaPaginas.innerHTML += `<li class="page-item"><a class="page-link" href="?page=${1}">Inicio</a></li>`
         let limite = (parseInt(page) + limitePaginas / 2 + 1);
         for (let pagina = (parseInt(page) - (limitePaginas / 2 - 1)); (pagina < limite); pagina++) {
             listaPaginas.innerHTML += `<li class="page-item"><a class="page-link" href="?page=${pagina}">${pagina}</a></li>`
@@ -73,5 +77,5 @@ function iniciarPagina() {
     atualizaPaginacao(page)
     listaPersonagens()
 }
-// http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg
+
 iniciarPagina()
