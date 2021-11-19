@@ -4,7 +4,7 @@ const api = axios.create({
 
 const notAvailable = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg"
 const marvelLogo = "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Marvel_Logo.svg/1200px-Marvel_Logo.svg.png"
-const limit = 50; //limite requisições
+const limit = 50; //limite resultados por requisição
 
 const limitePaginas = 10;
 
@@ -13,7 +13,6 @@ const params = new URLSearchParams(window.location.search);
 const page = params.get("page")
     ? params.get("page")
     : "1";
-
 
 function listaPersonagens() {
     const name = document.querySelector("#nomePersonagem").value
@@ -36,6 +35,23 @@ function listaPersonagens() {
         })
 }
 
+function carregaDetalhes() {
+    const idPersonagem = params.get("characterId")
+    console.log(idPersonagem);
+    api.get(`/personagem/${idPersonagem}`)
+        .then(result => {
+            console.log(result);
+            const detalhesDoPersonagem = result.data;
+            atualizaDetalhes(detalhesDoPersonagem);
+        })
+        .catch(err => {
+            alert(err)
+            console.log(err)
+            console.log(err.request);
+            console.log(err.response);
+        })
+}
+
 function atualizaTabela(lista) {
     const tbodyLista = document.querySelector("#listaPersonagens > tbody")
     tbodyLista.innerHTML = "";
@@ -49,12 +65,19 @@ function atualizaTabela(lista) {
         for (let colum = 0; colum < 10; colum++) {
             personagem = lista[counter]
             if (personagem.photo == notAvailable) personagem.photo = marvelLogo
-            conteudo += `<td><img alt="${personagem.name}" height=100 width = 100 src=${personagem.photo}></td>`
+            conteudo += `<td><a href="./detalhes.html?characterId=${personagem.id}"><img alt="${personagem.name}" height=100 width = 100 src=${personagem.photo}></a></td>`
             counter++;
         }
         conteudo += "</tr>"
     }
     tbodyLista.innerHTML = conteudo;
+}
+
+function atualizaDetalhes(detalhesDoPersonagem) {
+    const name = detalhesDoPersonagem.name;
+    console.log(name);
+    const descrition = detalhesDoPersonagem.descrition;
+    console.log(description);
 }
 
 function atualizaPaginacao(page) {
@@ -74,8 +97,15 @@ function atualizaPaginacao(page) {
 }
 
 function iniciarPagina() {
-    atualizaPaginacao(page)
-    listaPersonagens()
+    console.log(window.location.pathname)
+    if (window.location.pathname == "/public/index.html") {
+        listaPersonagens()
+        atualizaPaginacao(page)
+    }
+    else if (window.location.pathname == "/public/detalhes.html") {
+        carregaDetalhes()
+    }
+
 }
 
 iniciarPagina()
