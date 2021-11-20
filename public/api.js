@@ -5,7 +5,7 @@ const api = axios.create({
 const notAvailable = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg"
 const marvelLogo = "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Marvel_Logo.svg/1200px-Marvel_Logo.svg.png"
 const limit = 50; //limite resultados por requisição
-
+const characterPerRow = 5;
 const limitePaginas = 10;
 
 const params = new URLSearchParams(window.location.search);
@@ -57,12 +57,12 @@ function atualizaTabela(lista) {
     tbodyLista.innerHTML = "";
     counter = 0;
     console.log(lista);
-    let limRow = Math.floor(lista.length / 10)
+    let limRow = Math.floor(lista.length / characterPerRow)
     console.log(limRow);
     let conteudo = ""
     for (let row = 0; row < limRow; row++) {
         conteudo += "<tr>"
-        for (let colum = 0; colum < 10; colum++) {
+        for (let colum = 0; colum < characterPerRow; colum++) {
             personagem = lista[counter]
             if (personagem.photo == notAvailable) personagem.photo = marvelLogo
             conteudo += `<td><a href="./detalhes.html?characterId=${personagem.id}"><img alt="${personagem.name}" height=100 width = 100 src=${personagem.photo}></a></td>`
