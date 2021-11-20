@@ -4,11 +4,13 @@ const api = axios.create({
 
 const notAvailable = ["http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg", "http://i.annihil.us/u/prod/marvel/i/mg/f/60/4c002e0305708.gif"]
 const marvelLogo = "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Marvel_Logo.svg/1200px-Marvel_Logo.svg.png"
-const limit = 50; //limite resultados por requisição
-const personagensPorLinha = 8;
+
+const personagensPorLinha = 10;
+const linhasDePersonagem = 8;
+const limiteRequisicao = personagensPorLinha * linhasDePersonagem; //limite resultados por requisição
 const limitePaginas = 8;
-const larguraImagem = "92em"
-const alturaImagem = "92em";
+const larguraImagem = "125vw";
+const alturaImagem = "125vh";
 
 const params = new URLSearchParams(window.location.search);
 
@@ -22,7 +24,7 @@ function listaPersonagens() {
         params: {
             page,
             name,
-            limit
+            limit: limiteRequisicao
         }
     })
         .then(result => {
@@ -63,12 +65,12 @@ function atualizaTabela(lista) {
     console.log(limRow);
     let conteudo = ""
     for (let row = 0; row < limRow; row++) {
-        conteudo += `<div class="row  margin-y-auto">`
+        conteudo += `<div class="d-flex justify-content-center m-1">`
         for (let colum = 0; colum < personagensPorLinha; colum++) {
             personagem = lista[counter]
             if (notAvailable.includes(personagem.photo)) { personagem.photo = marvelLogo }
 
-            conteudo += `<div class="col mb-1"><a href="./detalhes.html?characterId=${personagem.id}"><img alt="${personagem.name}" height=${alturaImagem} width=${larguraImagem} src=${personagem.photo}></a></div>`
+            conteudo += `<a href="./detalhes.html?characterId=${personagem.id}"><img alt="${personagem.name}" height=${alturaImagem} width=${larguraImagem} src=${personagem.photo}></a>`
             counter++;
         }
         conteudo += "</div>"
