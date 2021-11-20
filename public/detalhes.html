@@ -13,21 +13,21 @@
     <title>Detalhes do Personagem </title>
 </head>
 
-<body>
+<body class="">
+    <div id="Principal" class="d-flex flex-column justify-content-between">
+        <div id=" imgNomeDesc" class="d-flex">
+            <div class="ps-2" id="photoPersonagem" style="width: 30%;">Imagem Principal</div>
 
-    <div class="d-flex">
-        <div id="photoPersonagem">Imagem Principal</div>
-        <div>
-            <button type="button" onclick=voltar()>Voltar</button>
-            <p id="nomePersonagem">Nome</p>
-            <p id="descricaoPersonagem">Descricao</p>
+            <div class="d-flex flex-column align-items-center w-100">
+                <button class="btn btn-primary align-self-end" type="button" onclick=voltar()>Voltar</button>
+                <p class="fs-1" id="nomePersonagem">Nome</p>
+                <p class="fs-3" id="descricaoPersonagem">Descricao</p>
+            </div>
         </div>
-
-    </div>
-
-    <div id="listaDeComics">
-        <p>HQs (comics)</p>
-        <div>Varias HQs...</div>
+        <div class="d-flex mt-4" id="listaDeComics">
+            <p>HQs (comics)</p>
+            <div>Varias HQs...</div>
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
