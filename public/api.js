@@ -44,7 +44,8 @@ function carregaDetalhes() {
     console.log(idPersonagem);
     api.get(`/personagem/${idPersonagem}`)
         .then(result => {
-            console.log(result);
+            console.log(result.data);
+            console.log(result.data.comics);
             const detalhesDoPersonagem = result.data;
             atualizaDetalhes(detalhesDoPersonagem);
         })
@@ -79,10 +80,20 @@ function atualizaTabela(lista) {
 }
 
 function atualizaDetalhes(detalhesDoPersonagem) {
-    const name = detalhesDoPersonagem.name;
-    console.log(name);
-    const descrition = detalhesDoPersonagem.descrition;
-    console.log(description);
+    nomePersonagem = document.querySelector("#nomePersonagem")
+    nomePersonagem.innerHTML = detalhesDoPersonagem.name;
+    descricaoPersonagem = document.querySelector("#descricaoPersonagem")
+    descricaoPersonagem.innerHTML = detalhesDoPersonagem.description;
+    photoPersonagem = document.querySelector("#photoPersonagem")
+    photoPersonagem.innerHTML = `<img src="${detalhesDoPersonagem.photo}" alt="${detalhesDoPersonagem.name}" srcset="">`
+
+    listaDeComics = document.querySelector("#listaDeComics")
+    let conteudo = ""
+    for (comic of detalhesDoPersonagem.comics) {
+        conteudo += `<img src="${comic.photo}" alt="${comic.title}" srcset="">`
+        conteudo += `<p>${comic.title}</p>`
+    }
+    listaDeComics.innerHTML = conteudo;
 }
 
 function atualizaPaginacao(page) {
@@ -102,7 +113,6 @@ function atualizaPaginacao(page) {
 }
 
 function iniciarPagina() {
-    console.log(window.location.pathname)
     if (window.location.pathname == "/public/index.html") {
         listaPersonagens()
         atualizaPaginacao(page)
