@@ -119,14 +119,14 @@ function atualizaPaginacao(page) {
 }
 
 function iniciarPagina() {
-    if (window.location.pathname == "/public/index.html") {
+    console.log(window.location.pathname)
+    if (window.location.pathname == "/") {
         listaPersonagens()
         atualizaPaginacao(page)
     }
-    else if (window.location.pathname == "/public/detalhes.html") {
+    else if (window.location.pathname == "/detalhes.html") {
         carregaDetalhes()
     }
-
 }
 
 function voltar() {
