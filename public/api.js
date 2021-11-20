@@ -83,7 +83,13 @@ function atualizaDetalhes(detalhesDoPersonagem) {
     nomePersonagem = document.querySelector("#nomePersonagem")
     nomePersonagem.innerHTML = detalhesDoPersonagem.name;
     descricaoPersonagem = document.querySelector("#descricaoPersonagem")
-    descricaoPersonagem.innerHTML = detalhesDoPersonagem.description;
+
+    if (detalhesDoPersonagem.description) {
+        descricaoPersonagem.innerHTML = detalhesDoPersonagem.description;
+    }
+    else {
+        descricaoPersonagem.innerHTML = "Não informado."
+    }
     photoPersonagem = document.querySelector("#photoPersonagem")
     photoPersonagem.innerHTML = `<img src="${detalhesDoPersonagem.photo}" alt="${detalhesDoPersonagem.name}" srcset="">`
 
@@ -123,4 +129,7 @@ function iniciarPagina() {
 
 }
 
+function voltar() {
+    window.location.href = "./index.html";
+}
 iniciarPagina()
