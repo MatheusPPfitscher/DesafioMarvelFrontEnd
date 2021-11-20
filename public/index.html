@@ -11,25 +11,18 @@
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
 
-<body class="container">
-    <h1>Personagens Marvel</h1>
-    <hr>
-    <input type="text" name="" id="nomePersonagem">
-    <button type="button" onclick=listaPersonagens()>Pesquisar</button>
-    <hr>
-    <table id="listaPersonagens" class="table">
-        <thead>
-            <tr>
-                <th>Photo</th>
-            </tr>
-        </thead>
-        <tbody>
-
-        </tbody>
-    </table>
+<body class="container vh-100">
+    <h1 class="row justify-content-center">Os Personagens da Marvel</h1>
+    <div class="row justify-content-center my-1">
+        <input class="col-2" type="text" name="" id="nomePersonagem">
+        <button class="col-1 btn btn-primary mx-1" type="button" onclick=listaPersonagens()>Pesquisar</button>
+    </div>
+    <div id="listaPersonagens">
+        <!-- Tabela Injetada aqui -->
+    </div>
 
     <nav aria-label="Page navigation example">
-        <ul id="paginacao" class=" pagination">
+        <ul id="paginacao" class="pagination justify-content-center">
         </ul>
     </nav>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
