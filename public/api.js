@@ -101,16 +101,19 @@ function atualizaDetalhes(detalhesDoPersonagem) {
     listaDeComics = document.querySelector('#listaDeComics');
     let conteudo = '';
     let comicsInDisplay = 0;
-    while (comicsInDisplay < limiteDeComics) {
-        let comic = detalhesDoPersonagem.comics[comicsInDisplay]
-        if (comic) {
-            conteudo += `<div class="d-flex flex-column ps-5"  style="width: 12vw;">`
-            conteudo += `<img class="" src="${comic.photo}" alt="${comic.title}" srcset="">`;
-            conteudo += `<p>${comic.title}</p>`;
-            conteudo += "</div>"
-            comicsInDisplay++
-        } else break
-    }
+    if (detalhesDoPersonagem.comics.length > 0) {
+        while (comicsInDisplay < limiteDeComics) {
+            let comic = detalhesDoPersonagem.comics[comicsInDisplay]
+            if (comic) {
+                conteudo += `<div class="d-flex flex-column ps-5"  style="width: 12vw;">`
+                conteudo += `<img class="" src="${comic.photo}" alt="${comic.title}" srcset="">`;
+                conteudo += `<p>${comic.title}</p>`;
+                conteudo += "</div>"
+                comicsInDisplay++
+            } else break
+        }
+    } else { conteudo = `<p class="mx-auto"> Não há HQs (comics) deste personagem</p>` }
+
     listaDeComics.innerHTML = conteudo;
 
     let items = document.querySelectorAll('.carousel .carousel-item')
