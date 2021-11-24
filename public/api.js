@@ -1,7 +1,6 @@
 const api = axios.create({
-    baseURL: 'http://localhost:8081',
+    baseURL: 'https://api-desafiomarvel-matheuspp.herokuapp.com',
 });
-// comentario
 
 const notAvailable = ['http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg', 'http://i.annihil.us/u/prod/marvel/i/mg/f/60/4c002e0305708.gif'];
 const marvelLogo = 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Marvel_Logo.svg/1200px-Marvel_Logo.svg.png';
